@@ -1,4 +1,4 @@
-use chrono::prelude::*;
+// use chrono::prelude::*;
 use mysql::prelude::*;
 use mysql::*; // 用来处理日期
 
@@ -13,7 +13,13 @@ fn main() {
     conn.query_iter("SELECT * FROM list")
         .unwrap()
         .for_each(|row| {
-            let r: (i32, String, NaiveDate) = from_row(row.unwrap());
+            let r: (i32, String, String) = from_row(row.unwrap());
             println!("{}, {}, {:?}", r.0, r.1, r.2);
         });
+
+    // for user in res {
+    //     println!("id={},key={},value={}", user.id, user.key, user.value);
+    // }
+
+    println!("结束");
 }
