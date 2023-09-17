@@ -1,36 +1,29 @@
-extern crate screenshot;
-extern crate bmp;
-extern crate image;
-
-use screenshot::get_screenshot;
-use bmp::{Image, Pixel};
+use screenshots::Screen;
+use std::{fs, time::Instant};
 
 fn main() {
-	let s = get_screenshot(0).unwrap();
+    let path = String::from("./");
+    // let img_name = String::from("{}.png");
+    let mut start;
+    let screens = Screen::all().unwrap();
+    fs::create_dir_all(&path).unwrap();
+    for screen in screens {
+        if screen.display_info.is_primary {
+            start = Instant::now();
+            println!("屏幕： {screen:?}");
+            let image = screen.capture().unwrap();
+            let buffer = image.buffer();
+            fs::write(format!("./{}.png", screen.display_info.id), buffer).unwrap();
+            println!("运行耗时: {:?}", start.elapsed());
+        }
+    }
 
-	println!("{} x {} x {} = {} bytes", s.height(), s.width(), s.pixel_width(), s.raw_len());
-
-	let origin = s.get_pixel(0, 0);
-	println!("(0,0): R: {}, G: {}, B: {}", origin.r, origin.g, origin.b);
-
-	let end_col = s.get_pixel(0, s.width()-1);
-	println!("(0,end): R: {}, G: {}, B: {}", end_col.r, end_col.g, end_col.b);
-
-	let opp = s.get_pixel(s.height()-1, s.width()-1);
-	println!("(end,end): R: {}, G: {}, B: {}", opp.r, opp.g, opp.b);
-
-	// WARNING rust-bmp params are (width, height)
-	let mut img = Image::new(s.width() as u32, s.height() as u32);
-	for row in (0..s.height()) {
-		for col in (0..s.width()) {
-			let p = s.get_pixel(row, col);
-			// WARNING rust-bmp params are (x, y)
-			img.set_pixel(col as u32, row as u32, Pixel {r: p.r, g: p.g, b: p.b});
-		}
-	}
-	img.save("test.bmp").unwrap();
-
-	image::save_buffer("test.png",
-		s.as_ref(), s.width() as u32, s.height() as u32, image::RGBA(8))
-	.unwrap();
+    start = Instant::now();
+    // 获取点所在屏幕
+    let screen = Screen::from_point(100, 100).unwrap();
+    println!("点所在屏幕： {screen:?}");
+    let image = screen.capture_area(0, 0, 1024, 768).unwrap();
+    let buffer = image.buffer();
+    fs::write("./capture_display_with_point.png", buffer).unwrap();
+    println!("运行耗时: {:?}", start.elapsed());
 }

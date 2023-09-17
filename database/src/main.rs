@@ -10,16 +10,21 @@ fn main() {
     let pool = Pool::new(url).unwrap();
     let mut conn = pool.get_conn().unwrap();
 
-    conn.query_iter("SELECT * FROM list")
-        .unwrap()
-        .for_each(|row| {
-            let r: (i32, String, String) = from_row(row.unwrap());
-            println!("{}, {}, {:?}", r.0, r.1, r.2);
-        });
+    // 第一种方法
+    // conn.query_iter("SELECT * FROM list")
+    //     .unwrap()
+    //     .for_each(|row| {
+    //         let r: (i32, String, String) = from_row(row.unwrap());
+    //         println!("{}, {}, {:?}", r.0, r.1, r.2);
+    //     });
 
-    // for user in res {
-    //     println!("id={},key={},value={}", user.id, user.key, user.value);
-    // }
+    // 第二种方法
+    let row: Vec<(i32, String, String)> = conn
+        .query("SELECT * FROM list ORDER BY id DESC LIMIT 100")
+        .unwrap();
+    for r in row {
+        println!("id={},key={},value={}", r.0, r.1, r.2);
+    }
 
     println!("结束");
 }
