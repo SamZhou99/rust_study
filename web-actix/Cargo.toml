@@ -1,0 +1,17 @@
+[package]
+name = "web-actix"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+actix-web = "4.11.0"
+rand = "0.9.1"
+# 静态文件
+actix-files = "0.6.6"
+serde = { version = "1.0", features = ["derive"] }
+# mysql依赖
+mysql = "26.0.0"
+mysql_async = "0.36.1"
+# 模板
+askama = "0.14.0"
+actix-ws = "0.3.0"

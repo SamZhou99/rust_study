@@ -3,7 +3,6 @@
 enum IpAddrKind {
     V4,
     V6,
-    V9(String),
 }
 
 // // 检枚举定义方法
@@ -17,16 +16,16 @@ struct IpAddr {
 }
 
 fn main() {
-    let _home = IpAddr {
+    let home = IpAddr {
         kind: IpAddrKind::V4,
         address: String::from("127.0.0.1"),
     };
 
-    let _loopback = IpAddr {
+    let loopback = IpAddr {
         kind: IpAddrKind::V6,
         address: String::from("::1"),
     };
 
-    // println!("{:?}", home);
-    // println!("{:?}", loopback);
+    println!("{:?}", home.kind);
+    println!("{:?}", loopback.address);
 }
