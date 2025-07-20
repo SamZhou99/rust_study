@@ -4,5 +4,6 @@ extern crate tokio;
 #[tokio::main]
 async fn main() {
     let url = "https://jsonplaceholder.typicode.com/posts/1";
-    test_command::req::get(url);
+    let res = test_command::req::get(url).await;
+    println!("{:?}", res);
 }
