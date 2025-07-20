@@ -1,3 +1,5 @@
+pub mod req;
+
 use std::process::Command;
 
 pub fn lock_screen() {
