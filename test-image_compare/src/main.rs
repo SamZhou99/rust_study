@@ -1,3 +1,5 @@
+// https://docs.rs/image-compare/latest/image_compare/
+
 use image_compare;
 // use image_compare::Algorithm;
 
