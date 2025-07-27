@@ -39,8 +39,6 @@ pub fn lock_macos() {
     } else {
         println!("macOS系统已锁屏");
     }
-
-    println!("macOS系统已锁屏");
 }
 
 // Linux系统锁屏
