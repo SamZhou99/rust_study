@@ -78,6 +78,19 @@ fn iter_find() {
     let first_even = ('a'..'z').into_iter().find(|&x| x == 'b');
     println!("iter_find={:?}", first_even);
 }
+fn iter_find_map() {
+    // 返回迭代器中第一个满足某个条件的元素。
+    // 如果是字母
+    let first_letter = "hello"
+        .chars()
+        .find_map(|c| if c.is_alphabetic() { Some(c) } else { None });
+    println!("first_letter={:?}", first_letter);
+    // 如果字母是大写
+    let first_letter = "hello World"
+        .chars()
+        .find_map(|c| if c.is_uppercase() { Some(c) } else { None });
+    println!("first_letter={:?}", first_letter);
+}
 
 fn main() {
     iter_map();
@@ -92,6 +105,7 @@ fn main() {
     iter_all();
     iter_any();
     iter_find();
+    iter_find_map();
 }
 
 /*
