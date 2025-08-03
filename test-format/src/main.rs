@@ -1,39 +1,6 @@
-use std::fmt;
-
-#[derive(Debug)]
-struct MinMax(i64, i64);
-
-impl fmt::Display for MinMax {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "({}, {})", self.0, self.1)
-    }
-}
-
-#[derive(Debug)]
-struct Point2D {
-    x: f64,
-    y: f64,
-}
-impl fmt::Display for Point2D {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "({}, {})", self.x, self.y)
-    }
-}
-
 fn main() {
-    let minmax = MinMax(0, 14);
-    println!("Display: {}", minmax);
-    println!("Debug: {:?}", minmax);
-
-    let big_range = MinMax(-300, 300);
-    let small_range = MinMax(-3, 3);
-    println!(
-        "big:{big}, small:{small}",
-        small = small_range,
-        big = big_range
-    );
-
-    let point = Point2D { x: 3.3, y: 7.2 };
-    println!("Display:{}", point);
-    println!("Debug:{:?}", point);
+    test_format::lib_min_max::test_min_max();
+    test_format::lib_point2d::test_point2d();
+    test_format::lib_list::test_list();
+    test_format::lib_fmt::test_fmt();
 }
