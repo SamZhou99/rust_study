@@ -2,7 +2,7 @@ extern crate image;
 extern crate num_complex;
 use chrono::Local;
 
-pub fn demo() -> String {
+pub fn create_image() -> String {
     let imgx = 256;
     let imgy = 256;
 
